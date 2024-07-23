@@ -64,11 +64,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <head>
 <link rel="stylesheet" type="text/css" href="style1.css" >
     <title>Register</title>
+    <script>
+function validateEmail() {
+    var email = document.forms["registerForm"]["email"].value;
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+    }
+    return true;
+}
+</script>
 </head>
 <body>
 <div class="container">
     <h2>Register</h2>
-    <form action="" method="post">
+    <form name="registerForm" action="" method="post" onsubmit="return validateEmail()">
         <label>Email:</label>
         <input type="email" name="email" required><br><br>
         

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("conn.php");
+include("home.php");
 
 
 if (!isset($_SESSION['user_id'])) {

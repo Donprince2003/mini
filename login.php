@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("conn.php");
+include("home.php");
 
 
 if (isset($_POST['submit'])) {
@@ -45,11 +46,22 @@ if (isset($_POST['submit'])) {
 <head>
 <link rel="stylesheet" type="text/css" href="style1.css">
 <title>Login Page</title>
+<script>
+function validateEmail() {
+    var email = document.forms["loginForm"]["name"].value;
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+    }
+    return true;
+}
+</script>
 </head>
 <body>
 <div class="container">
   <h2>Login</h2>
-  <form method="POST">
+  <form name="loginForm" method="POST" onsubmit="return validateEmail()">
     <input type="text" placeholder="Email" name="name" required>
     <input type="password" placeholder="Password" name="password" required>
     <button type="submit" name="submit">Login</button>
