@@ -23,7 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if ($user['user_id'] === $user_email) 
         {
-            $errors[] = "Email already exists";
+            echo "<script>
+                    alert('Email already exists. Redirecting to login page.');
+                    window.location.href = 'login.php';
+                  </script>";
+            exit();
         }
     }
 
@@ -42,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $errors[] = "Invalid contact number. It must be exactly 10 digits.";
     }
 
-    else
+    if (count($errors) == 0)
     {
         $sql = "INSERT INTO user_tab (user_id, user_name, user_password, user_role, user_gender, user_address, user_contact) 
                 VALUES ('$user_email', '$user_name', '$user_password', '$user_role', '$user_gender', '$user_address', '$user_contact')";
@@ -56,32 +60,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $errors[] = "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
+    else
+    {
+        // Display all error messages
+        echo "<div>" . implode('<br>', $errors) . "</div>";
+    }
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="style1.css" >
+<link rel="stylesheet" type="text/css" href="style1.css">
     <title>Register</title>
     <script>
-function validateEmail() {
-    var email = document.forms["registerForm"]["email"].value;
-    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!re.test(email)) {
-        alert("Please enter a valid email address.");
-        return false;
-    }
-    return true;
-}
-</script>
+        function validateEmail(email) {
+            const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function validateForm() {
+            const email = document.getElementById('email').value;
+            if (!validateEmail(email)) {
+                alert('Invalid email format');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <h2>Register</h2>
-    <form name="registerForm" action="" method="post" onsubmit="return validateEmail()">
+    <form action="" method="post" onsubmit="return validateForm()">
         <label>Email:</label>
-        <input type="email" name="email" required><br><br>
+        <input type="email" id="email" name="email" required><br><br>
         
         <label>Name:</label>
         <input type="text" name="name" required><br><br>
@@ -116,4 +129,7 @@ function validateEmail() {
             <a href="login.php">login now</a>
         </div>
     </form>
-<div>
+</div>
+</body>
+</html>
+l>
