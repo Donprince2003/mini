@@ -14,7 +14,26 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-h2, h1 {
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: auto;
+        width: 300px;
+
+        gap: 10px;
+        padding: 10px;
+    }
+    .grid-item {
+        background-color: #ccc;
+        border: 1px solid #333;
+        padding: 20px;
+        text-align: center;
+        font-size: 20px;
+    }
+
+
+h2,
+h1 {
     text-align: center;
     color: #333;
 }
@@ -46,7 +65,8 @@ input[type="submit"]:hover {
     background-color: #4cae4c;
 }
 
-.register, .login {
+.register,
+.login {
     text-align: center;
     margin-top: 10px;
 }

@@ -1,5 +1,6 @@
 <?php
 include('conn.php');
+include("index.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
@@ -31,10 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
     }
 
-    if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) 
-    {
-        $errors[] = "Invalid email format";
-    }
+   
 
     if ($user_password !== $user_password_confirm) 
     {
@@ -123,6 +121,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         
         <label>Address:</label>
         <textarea name="address" required></textarea><br><br>
+
+        
         
         <input type="submit" value="Register">
         <div>
@@ -132,4 +132,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 </div>
 </body>
 </html>
-l>
