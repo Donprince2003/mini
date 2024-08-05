@@ -74,9 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_worker_id'])) {
                     <p><strong>Worker ID:</strong> <?php echo htmlspecialchars($worker_id); ?></p>
                     <p><strong>Job:</strong> <?php echo htmlspecialchars($worker_job); ?></p>
                     <p><strong>Work experience:</strong> <?php echo htmlspecialchars($worker_exp); ?></p>
-                    <div>
-                        <a href="profile_updation.php"><button>Update Profile</button></a>
-                    </div>
+                    
                 </div>
             </body>
 
@@ -104,9 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_worker_id'])) {
                     <p><strong>Mobile Number:</strong> <?php echo htmlspecialchars($user_contact); ?></p>
                     <p><strong>Gender:</strong> <?php echo htmlspecialchars($user_gender); ?></p>
                     <p><strong>User Role:</strong> <?php echo htmlspecialchars($user_role); ?></p>
-                    <div>
-                        <a href="profile_updation.php"><button>Update Profile</button></a>
-                    </div>
+                   
                 </div>
             </body>
 
