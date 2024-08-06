@@ -116,13 +116,14 @@ if (!isset($_SESSION['user_id'])) {
                     header("Location: request.php");
                 } else {
                     echo "<script>alert('Error confirming job');</script>";
+                    header("Location: request.php");
+
                 }
             } elseif ($action == "decline") {
                 $decline_query = "UPDATE job_tab SET job_status=0 WHERE job_id='$job_id' AND job_worker='$worker_id'";
                 $update = mysqli_query($conn, $decline_query);
                 if ($update) {
                     echo "<script>alert('Job declined');</script>";
-                    header("Location: request.php");
                 } else {
                     echo "<script>alert('Error declining job');</script>";
                 }
