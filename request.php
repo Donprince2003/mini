@@ -51,6 +51,7 @@ if (!isset($_SESSION['user_id'])) {
             padding: 5px 10px;
             border-radius: 5px;
         }
+
         .accepted-box {
             position: absolute;
             top: 10px;
@@ -64,9 +65,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <div class="header">
-        <h1>Job Confirmation Dashboard</h1>
-    </div>
+
     <div class="dashboard-container">
         <?php
         $worker_id = $_SESSION['user_id'];

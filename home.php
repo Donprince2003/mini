@@ -27,7 +27,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 </head>
 
 <body>
-<div class="grid-container">
+<div >
         <h2>Worker Profiles</h2>
         <?php if (!empty($workers)) : ?>
             <?php foreach ($workers as $worker) :

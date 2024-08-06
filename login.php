@@ -26,6 +26,8 @@ if (isset($_POST['submit'])) {
       // Password is correct, start a session
       $_SESSION['user_id'] = $username;
       echo "<script>alert('login');</script>";
+      $update_sql = "UPDATE user_tab SET user_status = 1 WHERE user_id = '$username'";
+      $result = mysqli_query($conn, $update_sql);
       header("Location: profile.php");
     } else {
       echo "<script>alert('wrong password!');</script>";
