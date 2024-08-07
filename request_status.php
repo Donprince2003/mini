@@ -101,6 +101,8 @@ if (!isset($_SESSION['user_id'])) {
                 echo "Worker address: " . $user_info['user_address'] . "<br>";
                 echo "Worker contact: " . $user_info['user_contact'] . "<br>";
                 echo "Job description: " . $row['job_work'] . "<br>";
+                echo "Job date: " . $row['job_date'] . "<br>";
+
 
                 if ($row['job_status'] == 1) {
                     echo "<div class='accepted-box'>Job accepted</div>";

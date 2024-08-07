@@ -52,7 +52,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                         <div class="col">
                             <form method="POST" action="profile_vew.php">
                                 <input type="hidden" name="user_worker_id" value="<?php echo htmlspecialchars($worker['user_id']); ?>">
-                                <button type="submit" name="submit">Select user</button>
+                                <button type="submit" name="submit">Select worker</button>
                             </form>
                         </div>
                         <div class="col">

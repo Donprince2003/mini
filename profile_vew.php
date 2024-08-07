@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_worker_id'])) {
                         <textarea id="job_work" name="job_work" required></textarea>
                         <input type="hidden" name="user_worker_id" value="<?php echo htmlspecialchars($user_worker_id); ?>">
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
-                        <button type="submit" name="submit">Select user</button>
+                        <button type="submit" name="submit">Submit job require</button>
                     </form>
                 </div>
             </body>

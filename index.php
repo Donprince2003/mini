@@ -58,7 +58,7 @@
                             <a class="nav-link" href="logout.php">Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="request.php">Request</a>
+                            <a class="nav-link" href="request.php"> Job Request</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="request_status.php">Request Status</a>
