@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" type="text/css" href="style1.css">
     <title>Job Confirmation Dashboard</title>
     <style>
-.grid-container {
+        .grid-container {
             display: grid;
             grid-template-columns: 5fr 1fr;
             gap: 10px;
@@ -61,30 +61,45 @@ if (!isset($_SESSION['user_id'])) {
             padding: 5px 10px;
             border-radius: 5px;
         }
+
+        .waiting-box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: blueviolet;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
 <body>
-
     <div class="dashboard-container">
         <?php
-        $worker_id = $_SESSION['user_id'];
-        $sql = "SELECT * FROM job_tab WHERE job_worker='$worker_id'";
+        $user_id = $_SESSION['user_id'];
+        $sql = "SELECT * FROM job_tab WHERE job_user='$user_id'";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $job_id = $row['job_id'];
-                $job_user = $row['job_user'];
+                $job_worker = $row['job_worker'];
 
-                $user_sql = "SELECT `user_name`, `user_address`, `user_contact` FROM `user_tab` WHERE user_id='$job_user'";
+                $user_sql = "SELECT `user_name`, `user_address`, `user_contact` FROM `user_tab` WHERE user_id='$job_worker'";
                 $user_result = mysqli_query($conn, $user_sql);
                 $user_info = mysqli_fetch_assoc($user_result);
 
+                $worker_sql = "SELECT * FROM worker_tab WHERE user_id = '$job_worker'";
+                $worker_result = mysqli_query($conn, $worker_sql);
+                $user_data = mysqli_fetch_assoc($worker_result);
+
                 echo "<div class='grid-container'>";
                 echo "Job Id: " . $row['job_id'] . "<br>";
-                echo "Employer id: " . $row['job_user'] . "<br>";
-                echo "Employer name: " . $user_info['user_name'] . "<br>";
+                echo "Worker id: " . $user_data['worker_id'] . "<br>";
+                echo "Worker name: " . $user_info['user_name'] . "<br>";
+                echo "Worker address: " . $user_info['user_address'] . "<br>";
+                echo "Worker contact: " . $user_info['user_contact'] . "<br>";
                 echo "Job description: " . $row['job_work'] . "<br>";
 
                 if ($row['job_status'] == 1) {
@@ -92,16 +107,14 @@ if (!isset($_SESSION['user_id'])) {
                 } elseif ($row['job_status'] == 0) {
                     echo "<div class='declined-box'>Job declined</div>";
                 } elseif ($row['job_status'] == 3) {
-                    echo "<form action='' method='POST' class='item-actions'>";
-                    echo "<input type='hidden' name='job_id' value='$job_id'>";
-                    echo "<button type='submit' name='action' value='confirm'>Confirm</button>";
-                    echo "<button type='submit' name='action' value='decline'>Decline</button>";
-                    echo "</form>";
+                    echo "<div class='waiting-box'>Waiting Response</div>";
                 }
                 echo "</div>";
             }
         } else {
-            echo "No jobs available.";
+            echo '<div class="dashboard-container">';
+            echo "No request pending";
+            echo "</div>";
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && isset($_POST['job_id'])) {
@@ -109,19 +122,22 @@ if (!isset($_SESSION['user_id'])) {
             $action = $_POST['action'];
 
             if ($action == "confirm") {
-                $accept_query = "UPDATE job_tab SET job_status=1 WHERE job_id='$job_id' AND job_worker='$worker_id'";
+                $accept_query = "UPDATE job_tab SET job_status=1 WHERE job_id='$job_id' AND job_worker='$job_worker'";
                 $update = mysqli_query($conn, $accept_query);
                 if ($update) {
                     echo "<script>alert('Job confirmed');</script>";
+                    header("Location: request.php");
+                    exit();
                 } else {
                     echo "<script>alert('Error confirming job');</script>";
-
                 }
             } elseif ($action == "decline") {
-                $decline_query = "UPDATE job_tab SET job_status=0 WHERE job_id='$job_id' AND job_worker='$worker_id'";
+                $decline_query = "UPDATE job_tab SET job_status=0 WHERE job_id='$job_id' AND job_worker='$job_worker'";
                 $update = mysqli_query($conn, $decline_query);
                 if ($update) {
                     echo "<script>alert('Job declined');</script>";
+                    header("Location: request.php");
+                    exit();
                 } else {
                     echo "<script>alert('Error declining job');</script>";
                 }

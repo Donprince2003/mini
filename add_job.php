@@ -19,5 +19,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 } else {
     echo "Invalid request.";
 }
-header("Location: home.php");
+header("Location: request_status.php");
 ?>

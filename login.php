@@ -8,26 +8,22 @@ if (isset($_POST['submit'])) {
   $username = mysqli_real_escape_string($conn, $_POST['name']);
   $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-  // Prepared statement to prevent SQL injection
-  $stmt = $conn->prepare("SELECT user_password FROM user_tab WHERE user_id = ?");
-  $stmt->bind_param("s", $username);
-  $stmt->execute();
-  $stmt->store_result();
+  $sql = "SELECT * FROM user_tab WHERE user_id = '$username'";
+  $result = $conn->query($sql);
 
-
-
-  if ($stmt->num_rows > 0) {
-    $stmt->bind_result($user_password);
-    $stmt->fetch();
-
-
-
+  if ($result->num_rows > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $user_password = $row['user_password'];
     if ($password == $user_password) {
-      // Password is correct, start a session
+      $role=$row['user_role'];
+      $_SESSION['user_role'] =$role;
       $_SESSION['user_id'] = $username;
+      
+
       echo "<script>alert('login');</script>";
       $update_sql = "UPDATE user_tab SET user_status = 1 WHERE user_id = '$username'";
       $result = mysqli_query($conn, $update_sql);
+      
       header("Location: profile.php");
     } else {
       echo "<script>alert('wrong password!');</script>";
