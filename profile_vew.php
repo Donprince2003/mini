@@ -8,6 +8,9 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Get today's date in YYYY-MM-DD format
+$today = date("Y-m-d");
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_worker_id'])) {
     $user_worker_id = $_POST['user_worker_id'];
     $user_id = $_SESSION['user_id'];
@@ -76,11 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_worker_id'])) {
                     <p><strong>Work experience:</strong> <?php echo htmlspecialchars($worker_exp); ?></p>
                     <form method="POST" action="add_job.php">
                         <label for="job_date">Job Date:</label>
-                        <input type="date" id="job_date" name="job_date" required>
+                        <input type="date" id="job_date" name="job_date" required min="<?php echo $today; ?>">
                         <label for="job_work">Job Description:</label>
                         <textarea id="job_work" name="job_work" required></textarea>
                         <input type="hidden" name="user_worker_id" value="<?php echo htmlspecialchars($user_worker_id); ?>">
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
+                        <br><br>
                         <button type="submit" name="submit">Submit job require</button>
                     </form>
                 </div>

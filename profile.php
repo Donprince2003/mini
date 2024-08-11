@@ -26,14 +26,11 @@ $user_rating = $user_data['user_rating'];
 // Get user image
 $sql = "SELECT img_id FROM pro_img WHERE user_id = '$user_id'";
 $result = mysqli_query($conn, $sql);
-if(mysqli_num_rows($result)>0)
-{
+if (mysqli_num_rows($result) > 0) {
   $img_data = mysqli_fetch_assoc($result);
   $user_img = $img_data['img_id'];
-}
-else
-{
-  $user_img = "d.png"; 
+} else {
+  $user_img = "d.png";
 }
 if ($user_role == "worker") {
   // Fetch worker-specific data
@@ -60,6 +57,7 @@ if ($user_role == "worker") {
   <html>
 
   <head>
+
     <link rel="stylesheet" type="text/css" href="style1.css">
     <title>Profile Page</title>
   </head>
@@ -82,6 +80,33 @@ if ($user_role == "worker") {
       <div>
         <a href="profile_updation.php"><button>Update Profile</button></a>
       </div>
+    </div>
+  </body>
+
+  </html>
+<?php
+} elseif ($user_role == "admin") {
+?>
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="style1.css">
+    <title>Profile Page</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div style="display: flex; justify-content: center; align-items: center; border: 1px">
+        <?php echo "<img src='image/" . $user_img . "' width='50%'>"; ?>
+      </div>
+      <h2>Welcome, <?php echo htmlspecialchars($user_name); ?>!</h2>
+      <p><strong>User ID:</strong> <?php echo htmlspecialchars($user_id); ?></p>
+      <p><strong>Name:</strong> <?php echo htmlspecialchars($user_name); ?></p>
+      <p><strong>Address:</strong> <?php echo htmlspecialchars($user_address); ?></p>
+      <p><strong>Mobile Number:</strong> <?php echo htmlspecialchars($user_contact); ?></p>
+      <p><strong>Gender:</strong> <?php echo htmlspecialchars($user_gender); ?></p>
+      <p><strong>User Role:</strong> <?php echo htmlspecialchars($user_role); ?></p>
     </div>
   </body>
 
@@ -117,6 +142,9 @@ if ($user_role == "worker") {
 
   </html>
 <?php
+
+
+
 }
 
 mysqli_close($conn);

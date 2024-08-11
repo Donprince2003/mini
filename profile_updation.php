@@ -161,6 +161,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($new_role == "worker") {
     $update_worker_sql = "UPDATE worker_tab SET worker_job_field = '$new_job', worker_experience = '$new_exp' WHERE user_id = '$user_id'";
     $result_worker = mysqli_query($conn, $update_worker_sql);
+    $accept_query = "UPDATE worker_tab SET worker_status=4, worker_job_date=NOW() WHERE worker_id='$worker_id'";
+    $update = mysqli_query($conn, $accept_query);
   }
 
   if ($result && ($new_role != "worker" || $result_worker)) {
